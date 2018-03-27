@@ -1,1 +1,1 @@
-{"version":3,"file":"controller.js","sourceRoot":"","sources":["../../src/products/controller.ts"],"names":[],"mappings":""}
+{"version":3,"file":"controller.js","sourceRoot":"","sources":["../../src/products/controller.ts"],"names":[],"mappings":";;;;;;;;;;;AAAA,6DAAyE;AACzE,qCAAgC;AAIhC,IAAqB,iBAAiB,GAAtC;IAGQ,KAAK,CAAC,cAAc;QAChB,MAAM,QAAQ,GAAI,MAAM,gBAAO,CAAC,IAAI,EAAE,CAAA;QACtC,OAAO,QAAQ,CAAA;IACnB,CAAC;CAER,CAAA;AALO;IADH,yBAAG,CAAC,WAAW,CAAC;;;;uDAIZ;AANY,iBAAiB;IADrC,oCAAc,EAAE;GACI,iBAAiB,CAQrC;kBARoB,iBAAiB"}

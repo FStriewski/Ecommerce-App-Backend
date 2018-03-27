@@ -3,22 +3,25 @@ import { createKoaServer, Action, BadRequestError, useKoaServer } from "routing-
 import setupDb from './db'
 import UserController from './users/controller'
 import ProductController from './products/controller'
+import { Server } from 'http'
 import * as Koa from 'koa'
 
+const app = new Koa()
+const server = new Server(app.callback())
 const port = process.env.PORT || 4008
 
-const app = createKoaServer({
+useKoaServer(app, {
+    cors: true,
     controllers: [
         UserController,
-        ProductController
-
+        ProductController,
     ]
 })
 
 setupDb()
     .then(_ => {
-        app.listen(port, () => console.log(`Listening on port ${port}`))
+        server.listen(port)
+        console.log(`Listening on port ${port}`)
     })
     .catch(err => console.error(err))
-
 

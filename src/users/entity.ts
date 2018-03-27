@@ -1,10 +1,10 @@
-import { PrimaryGeneratedColumn, Column, OneToMany, BaseEntity } from "typeorm";
+import { PrimaryGeneratedColumn, Column, OneToMany, BaseEntity, Entity } from "typeorm";
 import { IsString, IsEmail } from "class-validator";
-import {Products} from '../products/entity'
+import {Product} from '../products/entity'
 
 
-export class Users extends BaseEntity {
-
+@Entity()
+export class User extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id?: number
@@ -20,7 +20,7 @@ export class Users extends BaseEntity {
     @Column('text')
     password: string  
 
-    @OneToMany(_ => Products, product => product.user )
-    products: Products[]
+    @OneToMany(_ => Product, product => product.user )
+    products: Product[]
 
 }

@@ -12,34 +12,37 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
 const entity_1 = require("../users/entity");
-class Products extends typeorm_1.BaseEntity {
-}
+let Product = class Product extends typeorm_1.BaseEntity {
+};
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], Products.prototype, "id", void 0);
+], Product.prototype, "id", void 0);
 __decorate([
     class_validator_1.IsString(),
     typeorm_1.Column('text'),
     __metadata("design:type", String)
-], Products.prototype, "name", void 0);
+], Product.prototype, "name", void 0);
 __decorate([
     class_validator_1.IsNumber(),
     typeorm_1.Column('integer', { nullable: false }),
     __metadata("design:type", Number)
-], Products.prototype, "price", void 0);
+], Product.prototype, "price", void 0);
 __decorate([
     class_validator_1.IsString(),
     typeorm_1.Column('text', { nullable: true }),
     __metadata("design:type", String)
-], Products.prototype, "description", void 0);
+], Product.prototype, "description", void 0);
 __decorate([
     typeorm_1.Column('text', { nullable: true }),
     __metadata("design:type", String)
-], Products.prototype, "imageurl", void 0);
+], Product.prototype, "imageurl", void 0);
 __decorate([
-    typeorm_1.ManyToOne(_ => entity_1.Users, user => user.products),
-    __metadata("design:type", entity_1.Users)
-], Products.prototype, "user", void 0);
-exports.Products = Products;
+    typeorm_1.ManyToOne(_ => entity_1.User, user => user.products),
+    __metadata("design:type", entity_1.User)
+], Product.prototype, "user", void 0);
+Product = __decorate([
+    typeorm_1.Entity()
+], Product);
+exports.Product = Product;
 //# sourceMappingURL=entity.js.map

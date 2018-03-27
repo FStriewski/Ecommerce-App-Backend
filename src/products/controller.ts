@@ -1,13 +1,14 @@
-import { JsonController, Get } from "routing-controllers";
-import {Products} from './entity'
+import { JsonController, Get, NotFoundError } from "routing-controllers";
+import {Product} from './entity'
 
 
 @JsonController()
 export default class ProductController {
 
     @Get('/products')
-        getAllProducts(){
-            return Products.find()
+        async getAllProducts(){
+            const products =  await Product.find()
+            return products
         }
 
 }
