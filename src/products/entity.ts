@@ -1,8 +1,8 @@
 import { BaseEntity, ManyToOne, OneToMany, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 import { IsString, IsNumber } from "class-validator";
-import {User} from '../users/entity'
+import {Users} from '../users/entity'
 
-export default class Products extends BaseEntity{
+export class Products extends BaseEntity{
     
     @PrimaryGeneratedColumn()
     id?: number
@@ -22,6 +22,6 @@ export default class Products extends BaseEntity{
     @Column('text', { nullable: true })
     imageurl: string
 
-    @ManyToOne(_ => User, user => user.products)
-    user: User
+    @ManyToOne(_ => Users, user => user.products)
+    user: Users
 }
