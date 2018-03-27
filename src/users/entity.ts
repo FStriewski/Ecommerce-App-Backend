@@ -1,5 +1,5 @@
-import { IsString, IsEmail } from "class-validator";
 import { PrimaryGeneratedColumn, Column, OneToMany, BaseEntity } from "typeorm";
+import { IsString, IsEmail } from "class-validator";
 import {Products} from '../products/entity'
 
 
