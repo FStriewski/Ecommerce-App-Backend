@@ -24,7 +24,15 @@ let UserController = class UserController {
             throw new routing_controllers_1.NotFoundError('No user found');
         return user;
     }
-    async createUser(body) { }
+    async createUser(body) {
+        try {
+            const newUser = await entity_1.User.create(body).save();
+            return newUser;
+        }
+        catch (error) {
+            return { error: error.message };
+        }
+    }
 };
 __decorate([
     routing_controllers_1.Get('/users'),

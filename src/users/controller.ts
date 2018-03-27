@@ -21,5 +21,13 @@ export default class UserController{
     @Post('/users')
         async createUser(
             @Body() body: User
-        ){}
+        ){
+            try {
+                const newUser = await User.create(body).save()
+                return newUser
+            }
+            catch(error){
+                return{error: error.message}
+            }
+        }
 }

@@ -1,4 +1,4 @@
-import { JsonController, Get, NotFoundError, Param } from "routing-controllers";
+import { JsonController, Get, NotFoundError, Param, Post, Body } from "routing-controllers";
 import {Product} from './entity'
 
 
@@ -15,5 +15,15 @@ export default class ProductController {
             const product = await Product.findOneById(id)
             if(!product) throw new NotFoundError("No product found")
             return product
+        }
+
+    @Post('/products')
+        async createProduct(
+            @Body() body: Product
+        ){
+           
+                const product = await Product.create(body).save()
+                return product
+            
         }
 }

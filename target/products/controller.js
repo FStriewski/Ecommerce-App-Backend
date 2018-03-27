@@ -25,6 +25,10 @@ let ProductController = class ProductController {
             throw new routing_controllers_1.NotFoundError("No product found");
         return product;
     }
+    async createProduct(body) {
+        const product = await entity_1.Product.create(body).save();
+        return product;
+    }
 };
 __decorate([
     routing_controllers_1.Get('/products'),
@@ -39,6 +43,13 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "getSingleProduct", null);
+__decorate([
+    routing_controllers_1.Post('/products'),
+    __param(0, routing_controllers_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [entity_1.Product]),
+    __metadata("design:returntype", Promise)
+], ProductController.prototype, "createProduct", null);
 ProductController = __decorate([
     routing_controllers_1.JsonController()
 ], ProductController);
