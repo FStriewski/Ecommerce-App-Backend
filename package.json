@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "target/index.js",
+  "author": "FStriewski <xxx>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/koa": "^2.0.44",
+    "@types/koa-bodyparser": "^4.2.0",
+    "@types/koa-multer": "^1.0.0",
+    "@types/koa-router": "^7.0.27",
+    "cors": "^2.8.4",
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-multer": "^1.0.2",
+    "koa-router": "^7.4.0",
+    "pg": "^7.4.1",
+    "routing-controllers": "^0.7.7",
+    "superagent": "^3.8.2",
+    "typeorm": "^0.1.16",
+    "typescript": "^2.7.2"
+  },
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon --inspect .",
+    "watch": "node_modules/.bin/tsc -w",
+    "compile": "node_modules/.bin/tsc -p ."
+  }
+}
