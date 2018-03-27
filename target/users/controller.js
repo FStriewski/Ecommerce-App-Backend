@@ -8,13 +8,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
 const entity_1 = require("./entity");
 let UserController = class UserController {
     getAllUsers() {
-        return entity_1.default.find();
+        return entity_1.User.find();
     }
+    async getUser(id) {
+        const user = await entity_1.User.findOneById(id);
+        if (!user)
+            throw new routing_controllers_1.NotFoundError('No user found');
+        return user;
+    }
+    async createUser(body) { }
 };
 __decorate([
     routing_controllers_1.Get('/users'),
@@ -22,6 +32,20 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "getAllUsers", null);
+__decorate([
+    routing_controllers_1.Get('/users/:id([0-9]+)'),
+    __param(0, routing_controllers_1.Param("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getUser", null);
+__decorate([
+    routing_controllers_1.Post('/users'),
+    __param(0, routing_controllers_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [entity_1.User]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "createUser", null);
 UserController = __decorate([
     routing_controllers_1.JsonController()
 ], UserController);
