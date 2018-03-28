@@ -33,6 +33,15 @@ let UserController = class UserController {
             return { error: error.message };
         }
     }
+    async updateUser(id, update) {
+        const user = await entity_1.User.findOneById(id);
+        if (!user)
+            throw new routing_controllers_1.NotFoundError("User not found");
+        return entity_1.User.merge(user, update).save();
+    }
+    deleteUser(id) {
+        return entity_1.User.removeById(id);
+    }
 };
 __decorate([
     routing_controllers_1.Get('/users'),
@@ -54,6 +63,21 @@ __decorate([
     __metadata("design:paramtypes", [entity_1.User]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "createUser", null);
+__decorate([
+    routing_controllers_1.Put('/users/:id([0-9]+)'),
+    __param(0, routing_controllers_1.Param("id")),
+    __param(1, routing_controllers_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, entity_1.User]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "updateUser", null);
+__decorate([
+    routing_controllers_1.Delete('/users/:id([0-9]+)'),
+    __param(0, routing_controllers_1.Param("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "deleteUser", null);
 UserController = __decorate([
     routing_controllers_1.JsonController()
 ], UserController);

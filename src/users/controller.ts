@@ -1,4 +1,4 @@
-import { JsonController, Get, Param, NotFoundError, Body, Post, Put } from "routing-controllers";
+import { JsonController, Get, Param, NotFoundError, Body, Post, Put, Delete } from "routing-controllers";
 import {User} from './entity'
 
 
@@ -31,7 +31,7 @@ export default class UserController{
             }
         }
 
-    @Put('/user/:id([0-9]+)')
+    @Put('/users/:id([0-9]+)')
         async updateUser(
             @Param("id") id:number,
             @Body() update: User
@@ -41,4 +41,12 @@ export default class UserController{
 
             return User.merge(user,update).save()
         }
+
+    @Delete('/users/:id([0-9]+)')
+         deleteUser(
+            @Param("id") id: number
+        ) {
+            return User.removeById(id)
+        }
+   
 }

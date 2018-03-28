@@ -1,4 +1,4 @@
-import { JsonController, Get, NotFoundError, Param, Post, Body, Put } from "routing-controllers";
+import { JsonController, Get, NotFoundError, Param, Post, Body, Put, Delete } from "routing-controllers";
 import {Product} from './entity'
 
 
@@ -36,6 +36,16 @@ export default class ProductController {
             if(!product) throw new NotFoundError("Product not found")
 
             return Product.merge(product, update).save()    
+        }
 
+    @Delete('/products/:id([0-9]+)')
+         deleteProduct(
+            @Param("id") id: number
+        ){
+            try{
+                console.log("Deleting...")
+                return Product.removeById(id)
+            }
+            catch(e){return e.message}
         }
 }

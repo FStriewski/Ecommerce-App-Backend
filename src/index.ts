@@ -8,7 +8,7 @@ import * as Koa from 'koa'
 
 const app = new Koa()
 const server = new Server(app.callback())
-const port = process.env.PORT || 4008
+const port = process.env.PORT || 4007
 
 useKoaServer(app, {
     cors: true,
