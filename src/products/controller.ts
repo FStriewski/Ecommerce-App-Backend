@@ -1,4 +1,4 @@
-import { JsonController, Get, NotFoundError, Param, Post, Body } from "routing-controllers";
+import { JsonController, Get, NotFoundError, Param, Post, Body, Put } from "routing-controllers";
 import {Product} from './entity'
 
 
@@ -17,13 +17,25 @@ export default class ProductController {
             return product
         }
 
+        // Needs user connection
     @Post('/products')
         async createProduct(
             @Body() body: Product
         ){
-           
                 const product = await Product.create(body).save()
                 return product
-            
+        }
+
+
+    @Put('/products/:id([0-9]+)')
+        async updateProduct(
+            @Param("id") id:number,
+            @Body() update: Product
+        ){
+            const product = await Product.findOneById(id)
+            if(!product) throw new NotFoundError("Product not found")
+
+            return Product.merge(product, update).save()    
+
         }
 }

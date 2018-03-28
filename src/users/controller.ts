@@ -1,4 +1,4 @@
-import { JsonController, Get, Param, NotFoundError, Body, Post } from "routing-controllers";
+import { JsonController, Get, Param, NotFoundError, Body, Post, Put } from "routing-controllers";
 import {User} from './entity'
 
 
@@ -29,5 +29,16 @@ export default class UserController{
             catch(error){
                 return{error: error.message}
             }
+        }
+
+    @Put('/user/:id([0-9]+)')
+        async updateUser(
+            @Param("id") id:number,
+            @Body() update: User
+        ){
+            const user = await User.findOneById(id)
+            if(!user) throw new NotFoundError("User not found")
+
+            return User.merge(user,update).save()
         }
 }
