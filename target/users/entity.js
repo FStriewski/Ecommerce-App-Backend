@@ -12,7 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
 const entity_1 = require("../products/entity");
+const class_transformer_1 = require("class-transformer");
+const bcrypt = require("bcrypt");
 let User = class User extends typeorm_1.BaseEntity {
+    async setPassword(rawPassword) {
+        const hash = await bcrypt.hash(rawPassword, 10);
+        this.password = hash;
+    }
+    checkPassword(rawPassword) {
+        return bcrypt.compare(rawPassword, this.password);
+    }
 };
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
@@ -29,7 +38,10 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
+    class_validator_1.IsString(),
+    class_validator_1.MinLength(6),
     typeorm_1.Column('text'),
+    class_transformer_1.Exclude({ toPlainOnly: true }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([

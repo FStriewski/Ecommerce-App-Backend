@@ -23,8 +23,10 @@ export default class UserController{
             @Body() body: User
         ){
             try {
-                const newUser = await User.create(body).save()
-                return newUser
+                const { password, ...rest } = body
+                const entity = User.create(rest)
+                await entity.setPassword(password)
+                return entity.save()
             }
             catch(error){
                 return{error: error.message}

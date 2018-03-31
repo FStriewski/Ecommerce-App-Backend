@@ -3,20 +3,54 @@ import { createKoaServer, Action, BadRequestError, useKoaServer } from "routing-
 import setupDb from './db'
 import UserController from './users/controller'
 import ProductController from './products/controller'
+import LoginController from './logins/controller'
 import { Server } from 'http'
 import * as Koa from 'koa'
+import { verify } from './jwt'
+import {User} from './users/entity'
 
 const app = new Koa()
 const server = new Server(app.callback())
-const port = process.env.PORT || 4007
+const port = process.env.PORT || 4009
 
 useKoaServer(app, {
     cors: true,
     controllers: [
         UserController,
         ProductController,
-    ]
+        LoginController,
+    ],
+    authorizationChecker: (action: Action) => {
+        const header: string = action.request.headers.authorization
+        if (header && header.startsWith('Bearer ')) {
+            const [, token] = header.split(' ')
+
+            try {
+                return !!(token && verify(token))
+            }
+            catch (e) {
+                throw new BadRequestError(e)
+            }
+        }
+
+        return false
+    },
+    currentUserChecker: async (action: Action) => {
+        const header: string = action.request.headers.authorization
+        if (header && header.startsWith('Bearer ')) {
+            const [, token] = header.split(' ')
+
+            if (token) {
+                const { id } = verify(token)
+                return User.findOneById(id)
+            }
+        }
+        return undefined
+    }
 })
+
+
+
 
 setupDb()
     .then(_ => {
