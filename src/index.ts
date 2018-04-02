@@ -41,8 +41,9 @@ useKoaServer(app, {
             const [, token] = header.split(' ')
 
             if (token) {
-                const { id } = verify(token)
-                return User.findOneById(id)
+                const { id,role } = verify(token)
+                return { id, role };
+                //A return User.findOneById(id)
             }
         }
         return undefined

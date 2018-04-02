@@ -45,6 +45,10 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
+    typeorm_1.Column('text', { default: 'admin' }),
+    __metadata("design:type", String)
+], User.prototype, "role", void 0);
+__decorate([
     typeorm_1.OneToMany(_ => entity_1.Product, product => product.user),
     __metadata("design:type", Array)
 ], User.prototype, "products", void 0);

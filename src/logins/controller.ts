@@ -20,11 +20,14 @@ export default class LoginController {
         @Body() { username, password }: AuthenticatePayload
     ) {
         const user = await User.findOne({ where: { username } })
+
         if (!user) throw new BadRequestError('A user with this name does not exist')
 
        if (!await user.checkPassword(password)) throw new BadRequestError('The password is not correct')
 
-       const jwt = sign({ id: user.id! })
+       const jwt = sign({ 
+           id: user.id!,
+           role: user.role! })
         return { jwt }
      
     }

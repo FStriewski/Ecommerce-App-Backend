@@ -9,7 +9,6 @@ const controller_3 = require("./logins/controller");
 const http_1 = require("http");
 const Koa = require("koa");
 const jwt_1 = require("./jwt");
-const entity_1 = require("./users/entity");
 const app = new Koa();
 const server = new http_1.Server(app.callback());
 const port = process.env.PORT || 4009;
@@ -38,8 +37,8 @@ routing_controllers_1.useKoaServer(app, {
         if (header && header.startsWith('Bearer ')) {
             const [, token] = header.split(' ');
             if (token) {
-                const { id } = jwt_1.verify(token);
-                return entity_1.User.findOneById(id);
+                const { id, role } = jwt_1.verify(token);
+                return { id, role };
             }
         }
         return undefined;

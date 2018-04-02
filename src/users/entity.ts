@@ -4,6 +4,7 @@ import {Product} from '../products/entity'
 import { Exclude } from 'class-transformer';
 import * as bcrypt from 'bcrypt'
 
+export type Role = 'customer' | 'admin'
 
 @Entity()
 export class User extends BaseEntity {
@@ -18,7 +19,10 @@ export class User extends BaseEntity {
     @IsEmail()
     @Column('text', {nullable: true})
     email: string
-
+    
+    @Column('text', { default: 'admin' })
+    role: Role
+    
     @IsString()
     @MinLength(6)
     @Column('text')

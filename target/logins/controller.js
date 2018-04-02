@@ -33,7 +33,10 @@ let LoginController = class LoginController {
             throw new routing_controllers_1.BadRequestError('A user with this name does not exist');
         if (!await user.checkPassword(password))
             throw new routing_controllers_1.BadRequestError('The password is not correct');
-        const jwt = jwt_1.sign({ id: user.id });
+        const jwt = jwt_1.sign({
+            id: user.id,
+            role: user.role
+        });
         return { jwt };
     }
 };
