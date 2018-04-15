@@ -25,10 +25,10 @@ const routing_controllers_1 = require("routing-controllers");
 const entity_1 = require("./entity");
 let UserController = class UserController {
     getAllUsers() {
-        return entity_1.User.find();
+        return entity_1.Users.find();
     }
     async getUser(id) {
-        const user = await entity_1.User.findOneById(id);
+        const user = await entity_1.Users.findOneById(id);
         if (!user)
             throw new routing_controllers_1.NotFoundError('No user found');
         return user;
@@ -36,7 +36,7 @@ let UserController = class UserController {
     async createUser(body) {
         try {
             const { password } = body, rest = __rest(body, ["password"]);
-            const entity = entity_1.User.create(rest);
+            const entity = entity_1.Users.create(rest);
             await entity.setPassword(password);
             return entity.save();
         }
@@ -45,13 +45,13 @@ let UserController = class UserController {
         }
     }
     async updateUser(id, update) {
-        const user = await entity_1.User.findOneById(id);
+        const user = await entity_1.Users.findOneById(id);
         if (!user)
             throw new routing_controllers_1.NotFoundError("User not found");
-        return entity_1.User.merge(user, update).save();
+        return entity_1.Users.merge(user, update).save();
     }
     deleteUser(id) {
-        return entity_1.User.removeById(id);
+        return entity_1.Users.removeById(id);
     }
 };
 __decorate([
@@ -71,7 +71,7 @@ __decorate([
     routing_controllers_1.Post('/users'),
     __param(0, routing_controllers_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [entity_1.User]),
+    __metadata("design:paramtypes", [entity_1.Users]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "createUser", null);
 __decorate([
@@ -79,7 +79,7 @@ __decorate([
     __param(0, routing_controllers_1.Param("id")),
     __param(1, routing_controllers_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, entity_1.User]),
+    __metadata("design:paramtypes", [Number, entity_1.Users]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateUser", null);
 __decorate([

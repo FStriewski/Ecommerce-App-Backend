@@ -14,7 +14,7 @@ const class_validator_1 = require("class-validator");
 const entity_1 = require("../products/entity");
 const class_transformer_1 = require("class-transformer");
 const bcrypt = require("bcrypt");
-let User = class User extends typeorm_1.BaseEntity {
+let Users = class Users extends typeorm_1.BaseEntity {
     async setPassword(rawPassword) {
         const hash = await bcrypt.hash(rawPassword, 10);
         this.password = hash;
@@ -26,34 +26,34 @@ let User = class User extends typeorm_1.BaseEntity {
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], User.prototype, "id", void 0);
+], Users.prototype, "id", void 0);
 __decorate([
     class_validator_1.IsString(),
     typeorm_1.Column('text'),
     __metadata("design:type", String)
-], User.prototype, "username", void 0);
+], Users.prototype, "username", void 0);
 __decorate([
     class_validator_1.IsEmail(),
     typeorm_1.Column('text', { nullable: true }),
     __metadata("design:type", String)
-], User.prototype, "email", void 0);
+], Users.prototype, "email", void 0);
+__decorate([
+    typeorm_1.Column('text', { default: 'admin' }),
+    __metadata("design:type", String)
+], Users.prototype, "role", void 0);
 __decorate([
     class_validator_1.IsString(),
     class_validator_1.MinLength(6),
     typeorm_1.Column('text'),
     class_transformer_1.Exclude({ toPlainOnly: true }),
     __metadata("design:type", String)
-], User.prototype, "password", void 0);
+], Users.prototype, "password", void 0);
 __decorate([
-    typeorm_1.Column('text', { default: 'admin' }),
-    __metadata("design:type", String)
-], User.prototype, "role", void 0);
-__decorate([
-    typeorm_1.OneToMany(_ => entity_1.Product, product => product.user),
+    typeorm_1.OneToMany(_ => entity_1.Products, product => product.user),
     __metadata("design:type", Array)
-], User.prototype, "products", void 0);
-User = __decorate([
+], Users.prototype, "products", void 0);
+Users = __decorate([
     typeorm_1.Entity()
-], User);
-exports.User = User;
+], Users);
+exports.Users = Users;
 //# sourceMappingURL=entity.js.map

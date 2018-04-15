@@ -28,7 +28,7 @@ __decorate([
 ], AuthenticatePayload.prototype, "password", void 0);
 let LoginController = class LoginController {
     async authenticate({ username, password }) {
-        const user = await entity_1.User.findOne({ where: { username } });
+        const user = await entity_1.Users.findOne({ where: { username } });
         if (!user)
             throw new routing_controllers_1.BadRequestError('A user with this name does not exist');
         if (!await user.checkPassword(password))

@@ -1,5 +1,5 @@
 import { JsonController, Get, NotFoundError, Param, Post, Body, Put, Delete } from "routing-controllers";
-import {Product} from './entity'
+import {Products} from './entity'
 
 
 @JsonController()
@@ -7,12 +7,12 @@ export default class ProductController {
 
     @Get('/products')
         async getAllProducts(){
-            const products =  await Product.find()
+            const products =  await Products.find()
             return products
         }
     @Get('/products/:id([0-9]+)')
         async getSingleProduct(@Param("id") id: number){
-            const product = await Product.findOneById(id)
+            const product = await Products.findOneById(id)
             if(!product) throw new NotFoundError("No product found")
             return product
         }
@@ -20,9 +20,9 @@ export default class ProductController {
         // Needs user connection
     @Post('/products')
         async createProduct(
-            @Body() body: Product
+            @Body() body: Products
         ){
-                const product = await Product.create(body).save()
+                const product = await Products.create(body).save()
                 return product
         }
 
@@ -30,12 +30,12 @@ export default class ProductController {
     @Put('/products/:id([0-9]+)')
         async updateProduct(
             @Param("id") id:number,
-            @Body() update: Product
+            @Body() update: Products
         ){
-            const product = await Product.findOneById(id)
+            const product = await Products.findOneById(id)
             if(!product) throw new NotFoundError("Product not found")
 
-            return Product.merge(product, update).save()    
+            return Products.merge(product, update).save()    
         }
 
     @Delete('/products/:id([0-9]+)')
@@ -44,7 +44,8 @@ export default class ProductController {
         ){
             try{
                 console.log("Deleting...")
-                return Product.removeById(id)
+                 Products.removeById(id)
+                 return id
             }
             catch(e){return e.message}
         }

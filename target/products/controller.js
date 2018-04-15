@@ -16,29 +16,30 @@ const routing_controllers_1 = require("routing-controllers");
 const entity_1 = require("./entity");
 let ProductController = class ProductController {
     async getAllProducts() {
-        const products = await entity_1.Product.find();
+        const products = await entity_1.Products.find();
         return products;
     }
     async getSingleProduct(id) {
-        const product = await entity_1.Product.findOneById(id);
+        const product = await entity_1.Products.findOneById(id);
         if (!product)
             throw new routing_controllers_1.NotFoundError("No product found");
         return product;
     }
     async createProduct(body) {
-        const product = await entity_1.Product.create(body).save();
+        const product = await entity_1.Products.create(body).save();
         return product;
     }
     async updateProduct(id, update) {
-        const product = await entity_1.Product.findOneById(id);
+        const product = await entity_1.Products.findOneById(id);
         if (!product)
             throw new routing_controllers_1.NotFoundError("Product not found");
-        return entity_1.Product.merge(product, update).save();
+        return entity_1.Products.merge(product, update).save();
     }
     deleteProduct(id) {
         try {
             console.log("Deleting...");
-            return entity_1.Product.removeById(id);
+            entity_1.Products.removeById(id);
+            return id;
         }
         catch (e) {
             return e.message;
@@ -62,7 +63,7 @@ __decorate([
     routing_controllers_1.Post('/products'),
     __param(0, routing_controllers_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [entity_1.Product]),
+    __metadata("design:paramtypes", [entity_1.Products]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "createProduct", null);
 __decorate([
@@ -70,7 +71,7 @@ __decorate([
     __param(0, routing_controllers_1.Param("id")),
     __param(1, routing_controllers_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, entity_1.Product]),
+    __metadata("design:paramtypes", [Number, entity_1.Products]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "updateProduct", null);
 __decorate([

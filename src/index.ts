@@ -7,7 +7,7 @@ import LoginController from './logins/controller'
 import { Server } from 'http'
 import * as Koa from 'koa'
 import { verify } from './jwt'
-import {User} from './users/entity'
+import {Users} from './users/entity'
 
 const app = new Koa()
 const server = new Server(app.callback())
