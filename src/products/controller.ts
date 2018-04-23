@@ -30,7 +30,7 @@ export default class ProductController {
     @Put('/products/:id([0-9]+)')
         async updateProduct(
             @Param("id") id:number,
-            @Body() update: Products
+            @Body() update: Partial <Products>
         ){
             const product = await Products.findOneById(id)
             if(!product) throw new NotFoundError("Product not found")
