@@ -10,7 +10,15 @@ export class Products extends BaseEntity{
 
     @IsString()
     @Column('text')
-    name: string
+    title: string
+
+    @IsString()
+    @Column('text')
+    author: string
+
+    @IsString()
+    @Column('text')
+    year: string
 
     @IsNumber()
     @Column('integer', {nullable: false})
@@ -23,6 +31,6 @@ export class Products extends BaseEntity{
     @Column('text', { nullable: true })
     imageurl: string
 
-    @ManyToOne(_ => Users, user => user.products)
+    @ManyToOne(_ => Users, user => user.products, { eager: true })
     user: Users
 }

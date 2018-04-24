@@ -22,7 +22,17 @@ __decorate([
     class_validator_1.IsString(),
     typeorm_1.Column('text'),
     __metadata("design:type", String)
-], Products.prototype, "name", void 0);
+], Products.prototype, "title", void 0);
+__decorate([
+    class_validator_1.IsString(),
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], Products.prototype, "author", void 0);
+__decorate([
+    class_validator_1.IsString(),
+    typeorm_1.Column('text'),
+    __metadata("design:type", String)
+], Products.prototype, "year", void 0);
 __decorate([
     class_validator_1.IsNumber(),
     typeorm_1.Column('integer', { nullable: false }),
@@ -38,7 +48,7 @@ __decorate([
     __metadata("design:type", String)
 ], Products.prototype, "imageurl", void 0);
 __decorate([
-    typeorm_1.ManyToOne(_ => entity_1.Users, user => user.products),
+    typeorm_1.ManyToOne(_ => entity_1.Users, user => user.products, { eager: true }),
     __metadata("design:type", entity_1.Users)
 ], Products.prototype, "user", void 0);
 Products = __decorate([
